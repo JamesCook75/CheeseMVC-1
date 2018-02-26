@@ -55,6 +55,7 @@ namespace CheeseMVC.Controllers
             foreach (int cheeseId in cheeseIds)
             {
                 CheeseData.Remove(cheeseId);
+
             }
 
             return Redirect("/");
