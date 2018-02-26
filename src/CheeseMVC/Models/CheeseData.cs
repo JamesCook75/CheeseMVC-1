@@ -7,27 +7,33 @@ namespace CheeseMVC.Models
 {
     public class CheeseData
     {
+        static private List<Cheese> cheeses = new List<Cheese>();
 
-        static private List<Cheese> Cheeses = new List<Cheese>();
-
+        // GetAll
         public static List<Cheese> GetAll()
         {
-            return Cheeses;
+            return cheeses;
         }
 
-        public static Cheese GetById(int cheeseId)
-        {
-            return Cheeses.Single(x => x.CheeseId == cheeseId);
-        }
-
+        // Add
         public static void Add(Cheese newCheese)
         {
-            Cheeses.Add(newCheese);
+            cheeses.Add(newCheese);
         }
 
-        public static bool Remove(int cheeseId)
+        // Remove
+        public static void Remove(int id)
         {
-            return Cheeses.Remove(GetById(cheeseId));
+            Cheese cheeseToRemove = GetById(id);
+            cheeses.Remove(cheeseToRemove);
         }
+
+        // GetById
+        public static Cheese GetById(int id)
+        {
+            return cheeses.Single(x => x.CheeseId == id);
+        }
+
+
     }
 }

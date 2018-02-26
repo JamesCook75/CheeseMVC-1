@@ -1,10 +1,8 @@
-﻿@model CheeseMVC.ViewModels.AddCheeseViewModel
+﻿@model CheeseMVC.Models.Cheese
 
-<h1>Add Cheese</h1>
+<h1>Edit Cheese @Model.Name</h1>
 
-<form asp-controller="Cheese" asp-action="Add" method="post">
-
-    
+<form asp-controller="Cheese" asp-action="Edit" asp- method="post">
 
     <div class="form-group">
         <label asp-for="Name"></label>
@@ -16,11 +14,13 @@
         <input class="form-control" asp-for="Description" />
         <span asp-validation-for="Description"></span>
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <label asp-for="Type"></label>
         <select asp-for="Type" asp-items="Model.CheeseTypes"></select>
-    </div>
+    </div>*@
+    <input type="hidden" asp-for="CheeseId"/>
 
-    <input type="submit" value="Add Cheese" />
+
+    <input type="submit" value="Edit Cheese" />
 
 </form>
