@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using CheeseMVC.Models;
 
 namespace CheeseMVC.ViewModels
 {
@@ -20,6 +21,20 @@ namespace CheeseMVC.ViewModels
         public int Rating { get; set; }
 
         public List<SelectListItem> CheeseTypes { get; set; }
+
+        public Cheese CreateCheese(string name, string description, CheeseType type, int rating)
+        {
+            Cheese newCheese = new Cheese
+            {
+                Name = name,
+                Description = description,
+                Type = type,
+                Rating = rating
+            };
+
+            return newCheese;
+
+        }
 
         public AddCheeseViewModel()
         {
