@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CheeseMVC.Data;
@@ -13,22 +14,27 @@ using Microsoft.Extensions.Logging;
 
 namespace CheeseMVC
 {
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<CheeseDbContext>
+    {
+        public CheeseDbContext CreateDbContext(string[] args)
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var builder = new DbContextOptionsBuilder<CheeseDbContext>();
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            builder.UseSqlServer(connectionString);
+
+            return new CheeseDbContext(builder.Options);
+        }
+    }
 
     public class Startup
     {
-        //public class BloggingContextFactory : IDesignTimeDbContextFactory<CheeseDbContext>
-        //{
-        //    public CheeseDbContext CreateDbContext(string[] args)
-        //    {
-        //        services.AddDbContext<CheeseDbContext>(options =>
-        //            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-        //        //var optionsBuilder = new DbContextOptionsBuilder<CheeseDbContext>();
-        //        //optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-
-        //        return CheeseDbContext();
-        //    }
-        //}
 
         public Startup(IHostingEnvironment env)
         {
